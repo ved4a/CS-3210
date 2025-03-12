@@ -5,6 +5,11 @@
 #include <algorithm>
 using namespace std;
 
+// Function headers
+vector<pair<int, int>> readInput(const string& filename);
+vector<deque<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points);
+void printLayersToFile(const string& filename, const vector<deque<pair<int, int>>>& layers);
+
 // Read coordinates from input.txt
 vector<pair<int, int>> readInput(const string& filename) {
     ifstream infile(filename);
