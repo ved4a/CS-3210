@@ -32,4 +32,34 @@ vector<deque<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points){
 
     // Make each layer a queue to easily add/remove
     vector<deque<pair<int, int>>> layers;
+
+    // Assign each point to the first layer
+    for(const auto &p : points){
+
+        // Check if a point has been assigned to a layer
+        bool assigned = false;
+
+        // For each layer, find the FIRST layer where the point p can be placed
+        for(auto &layer : layers) {
+
+            // p is NOT dominated by any point in this layer, so add it
+            // Why is it not dominated? Bc its y-coordinate is greater that the last point in the layer
+            if (p.second > layer.back().second) {
+                layer.emplace_back(p);
+                assigned = true;
+
+                // No longer check other layers
+                break;
+            }
+        }
+
+        // If p isn't assigned to any layer, create a new layer for it to be assigned in
+        if(!assigned){
+
+            // Add it to the new queue
+            layers.emplace_back(deque<pair<int, int>>{p});
+        }
+    }
+
+    return layers;
 };
