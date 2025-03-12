@@ -21,16 +21,3 @@ vector<pair<int, int>> readInput(const string& filename) {
     infile.close();
     return points;
 }
-
-int main(void) {
-    string inputFile = "./input.txt";
-    vector<pair<int, int>> points = readInput(inputFile);
-
-    // Print the points to check output
-    cout << "Read " << points.size() << " points from " << inputFile << ":\n";
-    for (const auto& p : points) {
-        cout << "(" << p.first << ", " << p.second << ")\n";
-    }
-
-    return 0;
-}
