@@ -63,3 +63,18 @@ vector<deque<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points){
 
     return layers;
 };
+
+void printLayersToFile(const string& filename, const vector<deque<pair<int, int>>>& layers){
+    ofstream outfile(filename);
+
+    // Iterating over each layer
+    for(size_t i = 0; i < layers.size(); i++){
+        if(i > 0) outfile << "\n";
+
+        // Iterating over each point in each layer[i]
+        for(const auto &p : layers[i]) {
+            outfile << p.first << " " << p.second << "\n";
+        }
+    }
+    outfile.close();
+}
