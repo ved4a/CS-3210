@@ -69,10 +69,17 @@ vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points)
         // Points to the immediate largest element just smaller than y-value
         auto iterator = staircase.lower_bound(p.second);
         if (iterator != staircase.begin()) --iterator;
-        // If upper.bound(p.sec) returns staircase.end -> p.second is smaller than all existing y-values
+
+        // If lower.bound(p.sec) returns staircase.end -> p.second is smaller than all existing y-values
         // ...so a new layer needs to be created, for which layers.size() provides the index
         // Else, an existing layer is found, so p will be placed in that index (aka iterator value)
         int layerIndex = (iterator != staircase.end() && iterator->first <= p.second) ? iterator->second : layers.size();
+
+        // After determining initial index, check if x-value is duplicate
+        // ...if so, create a new layer
+        if (layerIndex != layers.size() && !layers[layerIndex].empty() && layers[layerIndex].back().first == p.first) {
+            layerIndex = layers.size();
+        }
 
         // Create a new layer if the point doesn't fit in any existing layer
         if (layerIndex == layers.size()){
