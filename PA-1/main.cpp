@@ -66,7 +66,7 @@ vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points)
     for(const auto &p : points){
         counter++;
 
-        // Points to the immediate next element just greater than y-value
+        // Points to the immediate largest element just smaller than y-value
         auto iterator = staircase.lower_bound(p.second);
         if (iterator != staircase.begin()) --iterator;
         // If upper.bound(p.sec) returns staircase.end -> p.second is smaller than all existing y-values

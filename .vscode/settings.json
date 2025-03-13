@@ -3,6 +3,7 @@
         "vector": "cpp",
         "utility": "cpp",
         "xstring": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "fstream": "cpp"
     }
 }
