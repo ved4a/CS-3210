@@ -3,7 +3,11 @@
 #include <vector>
 #include <deque>
 #include <algorithm>
+#include <map> // Built-in RBT
 using namespace std;
+
+// Global counter
+long counter = 0;
 
 // Function headers
 vector<pair<int, int>> readInput(const string& filename);
