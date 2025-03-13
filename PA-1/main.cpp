@@ -80,15 +80,23 @@ vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points)
     return layers;
 };
 
-void printLayersToFile(const string& filename, const vector<deque<pair<int, int>>>& layers){
+void printLayersToFile(const string& filename, const vector<vector<pair<int, int>>>& layers){
     ofstream outfile(filename);
 
-    // Iterating over each layer
     for(size_t i = 0; i < layers.size(); i++){
+        // Begin each new layer with a newline
         if(i > 0) outfile << "\n";
 
-        // Iterating over each point in each layer[i]
-        for(const auto &p : layers[i]) {
+        // Sort each layer by y in ascending order
+        // ...or x descending if any y's are equal
+        vector<pair<int, int>> sortedLayer = layers[i];
+        sort(sortedLayer.begin(), sortedLayer.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
+            counter++;
+            return (a.second < b.second) || (a.second == b.second && a.first > b.first);
+        });
+
+        // Iterating over each point in each sorted layer
+        for(const auto &p : sortedLayer) {
             outfile << p.first << " " << p.second << "\n";
         }
     }
