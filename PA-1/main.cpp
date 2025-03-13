@@ -23,6 +23,7 @@ int main(void){
     printLayersToFile(outputFile, layers);
 
     cout << "Total # of operations: " << counter << endl;
+    cout << "Total time taken: O(nlogn + nlogn) = O(nlogn)" << endl;
 
     return 0;
 }
@@ -50,7 +51,7 @@ vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points)
     sort(points.begin(), points.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
         // If 2 points have the same x-coordinate, then sort by descending y-coordinate
         counter++;
-        return (a.first > b.first) || (a.first == b.first && a.second > b.second);
+        return (a.first > b.first) || (a.first == b.first && a.second < b.second);
     });
 
     // Make each layer a queue to easily add/remove
@@ -66,11 +67,12 @@ vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points)
         counter++;
 
         // Points to the immediate next element just greater than y-value
-        auto iterator = staircase.upper_bound(p.second);
+        auto iterator = staircase.lower_bound(p.second);
+        if (iterator != staircase.begin()) --iterator;
         // If upper.bound(p.sec) returns staircase.end -> p.second is smaller than all existing y-values
         // ...so a new layer needs to be created, for which layers.size() provides the index
         // Else, an existing layer is found, so p will be placed in that index (aka iterator value)
-        int layerIndex = (iterator == staircase.end()) ? layers.size() : iterator->second;
+        int layerIndex = (iterator != staircase.end() && iterator->first <= p.second) ? iterator->second : layers.size();
 
         // Create a new layer if the point doesn't fit in any existing layer
         if (layerIndex == layers.size()){
@@ -95,7 +97,7 @@ void printLayersToFile(const string& filename, const vector<vector<pair<int, int
         if(i > 0) outfile << "\n";
 
         // Sort each layer by y in ascending order
-        // ...or x descending if any y's are equal
+        // ...or x ascending if any y's are equal
         vector<pair<int, int>> sortedLayer = layers[i];
         sort(sortedLayer.begin(), sortedLayer.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
             counter++;
