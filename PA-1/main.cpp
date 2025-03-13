@@ -9,19 +9,15 @@ using namespace std;
 // Global counter
 long counter = 0;
 
-// Function headers
+// Function prototype
 vector<pair<int, int>> readInput(const string& filename);
-vector<deque<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points);
+vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points);
 void printLayersToFile(const string& filename, const vector<deque<pair<int, int>>>& layers);
 
 // Main function
 int main(void){
     string inputFile = "./input.txt";
     string outputFile = "output.txt";
-
-    vector<pair<int, int>> points = readInput(inputFile);
-    vector<deque<pair<int, int>>> layers = findMaximalLayers(points);
-    printLayersToFile(outputFile, layers);
 }
 
 // Read coordinates from input.txt
