@@ -54,34 +54,20 @@ vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points)
     vector<vector<pair<int, int>>> layers;
 
     // Invoke RBT as staircase
+    // Key: y value of a point
+    // Value: index of layer where it's stored [M_i]
     map<int, int> staircase;
 
     // Assign each point to the first layer
     for(const auto &p : points){
+        counter++;
 
-        // Check if a point has been assigned to a layer
-        bool assigned = false;
-
-        // For each layer, find the FIRST layer where the point p can be placed
-        for(auto &layer : layers) {
-
-            // p is NOT dominated by any point in this layer, so add it
-            // Why is it not dominated? Bc its y-coordinate is greater that the last point in the layer
-            if (p.second > layer.back().second) {
-                layer.emplace_back(p);
-                assigned = true;
-
-                // No longer check other layers
-                break;
-            }
-        }
-
-        // If p isn't assigned to any layer, create a new layer for it to be assigned in
-        if(!assigned){
-
-            // Add it to the new queue
-            layers.emplace_back(deque<pair<int, int>>{p});
-        }
+        // Points to the immediate next element just greater than y-value
+        auto iterator = staircase.upper_bound(p.second);
+        // If upper.bound(p.sec) returns staircase.end -> p.second is smaller than all existing y-values
+        // ...so a new layer needs to be created, for which layers.size() provides the index
+        // Else, an existing layer is found, so p will be placed in that index (aka iterator value)
+        int layerIndex = (iterator == staircase.end()) ? layers.size() : iterator->second;
     }
 
     return layers;
