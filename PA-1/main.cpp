@@ -46,6 +46,7 @@ vector<deque<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points){
     // Sort the points in descending order (x-coordinate)
     sort(points.begin(), points.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
         // If 2 points have the same x-coordinate, then sort by descending y-coordinate
+        counter++;
         return (a.first > b.first) || (a.first == b.first && a.second > b.second);
     });
 
