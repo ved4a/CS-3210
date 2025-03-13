@@ -68,6 +68,17 @@ vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points)
         // ...so a new layer needs to be created, for which layers.size() provides the index
         // Else, an existing layer is found, so p will be placed in that index (aka iterator value)
         int layerIndex = (iterator == staircase.end()) ? layers.size() : iterator->second;
+
+        // Create a new layer if the point doesn't fit in any existing layer
+        if (layerIndex == layers.size()){
+            layers.push_back({});
+        }
+
+        // Add the point to the layer
+        layers[layerIndex].push_back(p);
+
+        // Update the staircase
+        staircase[p.second] = layerIndex;
     }
 
     return layers;
