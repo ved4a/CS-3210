@@ -42,7 +42,7 @@ vector<pair<int, int>> readInput(const string& filename) {
     return points;
 }
 
-vector<deque<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points){
+vector<vector<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points){
     // Sort the points in descending order (x-coordinate)
     sort(points.begin(), points.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
         // If 2 points have the same x-coordinate, then sort by descending y-coordinate
@@ -51,7 +51,10 @@ vector<deque<pair<int, int>>> findMaximalLayers(vector<pair<int, int>>& points){
     });
 
     // Make each layer a queue to easily add/remove
-    vector<deque<pair<int, int>>> layers;
+    vector<vector<pair<int, int>>> layers;
+
+    // Invoke RBT as staircase
+    map<int, int> staircase;
 
     // Assign each point to the first layer
     for(const auto &p : points){
