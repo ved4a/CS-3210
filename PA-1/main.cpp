@@ -22,5 +22,19 @@ int main(void){
     ifstream input("input.txt");
     ofstream output("output.txt");
 
+    // Store # of points in 'n'
+    int n;
+    input >> n;
+
+    // Store ALL points in a vector
+    vector<Point> points(n);
+
+    // Read points from input.txt [.first is x, .second is y]
+    for (int i = 0; i < n; i++){
+        input >> points[i].first >> points[i].second;
+    }
+
+
+
     return 0;
 }
