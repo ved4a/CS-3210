@@ -16,3 +16,11 @@ struct CompareX {
         return a.first > b.first || (a.first == b.first && a.second < b.second);
     }
 };
+
+int main(void){
+    // Input output, reading writing respectively
+    ifstream input("input.txt");
+    ofstream output("output.txt");
+
+    return 0;
+}
