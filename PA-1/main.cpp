@@ -55,13 +55,12 @@ int main(void){
                 assigned = true;
                 break;
             }
-
-            // Create a new layer if point wasn't placed
-            if (!assigned){
-                layers.push_back({p});
-            }
         }
 
+        // Create a new layer if point wasn't assigned to any layer
+        if (!assigned){
+            layers.push_back({p});
+        }
     }
 
 
