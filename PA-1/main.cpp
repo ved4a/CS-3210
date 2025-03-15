@@ -8,11 +8,15 @@ using namespace std;
 // A point is a pair of integers
 typedef pair<int, int> Point;
 
+// Global counter
+int counter = 0;
+
 // Comparator for sorting points
 // Sort by descending x-coordinate first
 // If x-coordinates are equal, sort by ascending y-coordinate
 struct CompareX {
     bool operator()(const Point &a, const Point &b) const {
+        counter++;
         return a.first > b.first || (a.first == b.first && a.second < b.second);
     }
 };
@@ -48,6 +52,7 @@ int main(void){
 
         // First try placing in an existing layer
         for (auto &layer: layers) {
+            counter++;
             // If the LAST point in the layer being processed has a smaller y-value than the current point
             if(layer.back().second < p.second){
                 // Then place the current point in this layer
@@ -66,6 +71,7 @@ int main(void){
     for (size_t i = 0; i < layers.size(); i++) {
         // Sort each layer by y in ascending order
         sort(layers[i].begin(), layers[i].end(), [](const Point &a, const Point &b) {
+            counter++;
             return a.second < b.second;
         });
         
@@ -79,7 +85,9 @@ int main(void){
         if (i != layers.size() - 1) {
             output << "\n";
         }
-    }  
+    }
+    
+    cout << "Total # of operations: " << counter << endl;
 
     return 0;
 }
