@@ -40,7 +40,29 @@ int main(void){
     sort(points.begin(), points.end(), CompareX());
 
     // Each layer is a VECTOR of vectors (aka vector of POINTS)
-    vector<vector<Point>> layer;
+    vector<vector<Point>> layers;
+
+    for (const auto &p: points) {
+        // Check is a point is assigned to some Mi
+        bool assigned = false;
+
+        // First try placing in an existing layer
+        for (auto &layer: layers) {
+            // If the LAST point in the layer being processed has a smaller y-value than the current point
+            if(layer.back().second < p.second){
+                // Then place the current point in this layer
+                layer.push_back(p);
+                assigned = true;
+                break;
+            }
+
+            // Create a new layer if point wasn't placed
+            if (!assigned){
+                layers.push_back({p});
+            }
+        }
+
+    }
 
 
 
