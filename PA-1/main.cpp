@@ -34,6 +34,14 @@ int main(void){
         input >> points[i].first >> points[i].second;
     }
 
+    // Sort points
+    // Best: descending x
+    // If x's are same: ascending y
+    sort(points.begin(), points.end(), CompareX());
+
+    // Each layer is a VECTOR of vectors (aka vector of POINTS)
+    vector<vector<Point>> layer;
+
 
 
     return 0;
