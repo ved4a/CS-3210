@@ -63,7 +63,23 @@ int main(void){
         }
     }
 
-
+    for (size_t i = 0; i < layers.size(); i++) {
+        // Sort each layer by y in ascending order
+        sort(layers[i].begin(), layers[i].end(), [](const Point &a, const Point &b) {
+            return a.second < b.second;
+        });
+        
+        // Write all points in this layer to output.txt
+        for (const auto &p : layers[i]) {
+            output << p.first << " " << p.second << "\n";
+        }
+        
+        // Add a blank line between layers
+        // Exclude last layer from this
+        if (i != layers.size() - 1) {
+            output << "\n";
+        }
+    }  
 
     return 0;
 }
